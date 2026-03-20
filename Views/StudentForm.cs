@@ -79,7 +79,7 @@ namespace dpiotrowski_lab1
             buildingInput.Text = "";
             flatInputCheckBox.Checked = false;
             flatInput.Text = "";
-            flatInput.Enabled= false;
+            flatInput.Enabled = false;
         }
 
         public void AddStudentButton_Click(object? sender, EventArgs e)
@@ -110,6 +110,30 @@ namespace dpiotrowski_lab1
             catch (ArgumentException exception)
             {
                 _showMessage(exception.Message);
+            }
+        }
+
+        private void _allowDigits(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _allowLettersAndWhitespace(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _allowAlphanumeric(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
 

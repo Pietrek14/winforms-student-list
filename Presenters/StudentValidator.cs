@@ -63,13 +63,9 @@ namespace dpiotrowski_lab1.Presenters
                 throw new ArgumentException("Nazwa ulicy nie może być pusta");
             }
 
-            uint buildingNumber;
+            string buildingNumber;
 
-            try
-            {
-                buildingNumber = UInt32.Parse(studentData.BuildingNumber);
-            }
-            catch (FormatException)
+            if (!Regex.IsMatch(studentData.BuildingNumber, @"[0-9][0-9A-Z]*"))
             {
                 throw new ArgumentException("Wprowadzono niepoprawny numer budynku");
             }
@@ -101,7 +97,7 @@ namespace dpiotrowski_lab1.Presenters
                         UInt32.Parse(studentData.PostalCodeFirst),
                         UInt32.Parse(studentData.PostalCodeSecond)),
                     studentData.Street,
-                    buildingNumber,
+                    studentData.BuildingNumber,
                     flatNumber),
                 yearOfStudy);
         }
@@ -142,7 +138,7 @@ namespace dpiotrowski_lab1.Presenters
                 student.Address.PostalCode.First.ToString(),
                 student.Address.PostalCode.Second.ToString(),
                 student.Address.Street,
-                student.Address.BuildingNumber.ToString(),
+                student.Address.BuildingNumber,
                 flatNumber);
         }
     }

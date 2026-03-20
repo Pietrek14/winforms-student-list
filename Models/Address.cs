@@ -28,10 +28,10 @@ namespace dpiotrowski_lab1.Models
         public string City { get; set; }
         public PostalCode PostalCode { get; set; }
         public string Street { get; set; }
-        public uint BuildingNumber { get; set; }
+        public string BuildingNumber { get; set; }
         public uint? FlatNumber { get; set; }
 
-        public Address(string city, PostalCode postalCode, string street, uint buildingNumber, uint? flatNumber)
+        public Address(string city, PostalCode postalCode, string street, string buildingNumber, uint? flatNumber)
         {
             this.City = city;
             this.PostalCode = postalCode;

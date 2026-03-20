@@ -220,6 +220,7 @@ namespace dpiotrowski_lab1
             lastNameInput.Name = "lastNameInput";
             lastNameInput.Size = new Size(200, 23);
             lastNameInput.TabIndex = 3;
+            lastNameInput.KeyPress += _allowLettersAndWhitespace;
             // 
             // lastNameInputLabel
             // 
@@ -250,6 +251,7 @@ namespace dpiotrowski_lab1
             nameInput.Name = "nameInput";
             nameInput.Size = new Size(200, 23);
             nameInput.TabIndex = 1;
+            nameInput.KeyPress += _allowLettersAndWhitespace;
             // 
             // dateOfBirthInput
             // 
@@ -328,6 +330,7 @@ namespace dpiotrowski_lab1
             buildingInput.Name = "buildingInput";
             buildingInput.Size = new Size(200, 23);
             buildingInput.TabIndex = 9;
+            buildingInput.KeyPress += _allowAlphanumeric;
             // 
             // buildingInputLabel
             // 
@@ -388,6 +391,7 @@ namespace dpiotrowski_lab1
             cityInput.Name = "cityInput";
             cityInput.Size = new Size(200, 23);
             cityInput.TabIndex = 1;
+            cityInput.KeyPress += _allowLettersAndWhitespace;
             // 
             // postalCodeInputLayout
             // 
@@ -411,9 +415,11 @@ namespace dpiotrowski_lab1
             // 
             postalCodeInput2.Dock = DockStyle.Fill;
             postalCodeInput2.Location = new Point(91, 3);
+            postalCodeInput2.MaxLength = 3;
             postalCodeInput2.Name = "postalCodeInput2";
             postalCodeInput2.Size = new Size(112, 23);
             postalCodeInput2.TabIndex = 4;
+            postalCodeInput2.KeyPress += _allowDigits;
             // 
             // postalCodeDash
             // 
@@ -430,9 +436,11 @@ namespace dpiotrowski_lab1
             // 
             postalCodeInput1.Dock = DockStyle.Fill;
             postalCodeInput1.Location = new Point(3, 3);
+            postalCodeInput1.MaxLength = 2;
             postalCodeInput1.Name = "postalCodeInput1";
             postalCodeInput1.Size = new Size(43, 23);
             postalCodeInput1.TabIndex = 3;
+            postalCodeInput1.KeyPress += _allowDigits;
             // 
             // flatInputLayout
             // 
@@ -467,6 +475,7 @@ namespace dpiotrowski_lab1
             flatInput.Name = "flatInput";
             flatInput.Size = new Size(130, 23);
             flatInput.TabIndex = 1;
+            flatInput.KeyPress += _allowDigits;
             // 
             // studentFormButtonLayout
             // 
