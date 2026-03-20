@@ -56,11 +56,11 @@ namespace dpiotrowski_lab1
             MessageBox.Show(message);
         }
 
-        public void UpdateStudentList(List<IDStudentData> students)
+        public void UpdateStudentList(IEnumerable<IDStudentData> students)
         {
             studentList.Items.Clear();
 
-            foreach (StudentData student in students)
+            foreach (IDStudentData student in students)
             {
                 studentList.Items.Add(student);
             }
@@ -192,6 +192,11 @@ namespace dpiotrowski_lab1
             this._clearStudentForm();
 
             this._selectedStudent = null;
+        }
+
+        private void StudentForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

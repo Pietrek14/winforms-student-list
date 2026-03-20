@@ -10,6 +10,6 @@ namespace dpiotrowski_lab1.Views
 {
     internal interface IStudentListView
     {
-        public void UpdateStudentList(List<IDStudentData> students);
+        public void UpdateStudentList(IEnumerable<IDStudentData> students);
     }
 }

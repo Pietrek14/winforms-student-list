@@ -604,7 +604,8 @@ namespace dpiotrowski_lab1
             ClientSize = new Size(887, 506);
             Controls.Add(main);
             Name = "StudentForm";
-            Text = "Form1";
+            Text = "Lista studentów";
+            Load += StudentForm_Load;
             main.ResumeLayout(false);
             main.PerformLayout();
             formsContainer.Panel1.ResumeLayout(false);

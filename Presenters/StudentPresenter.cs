@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dpiotrowski_lab1.Presenters
 {
-    internal class StudentPresenter : IStudentPresenter
+    internal class StudentPresenter : IStudentPresenter, IStudentRegisterSubscriber
     {
         private IAddStudentView _addStudentView;
         private IStudentListView _studentListView;
@@ -18,6 +18,12 @@ namespace dpiotrowski_lab1.Presenters
             this._addStudentView = addStudentView;
             this._studentListView = studentListView;
             this._model = model;
+
+            this._model.Subscribe(this);
+        }
+
+        ~StudentPresenter() { 
+            this._model.Unsubscribe(this);
         }
 
         public void AddStudent(StudentData studentData)
@@ -64,6 +70,13 @@ namespace dpiotrowski_lab1.Presenters
         public void LoadStudentListFromFile(string filename)
         {
             throw new NotImplementedException();
+        }
+
+        public void StudentUpdate()
+        {
+            List<Student> students = this._model.GetStudents();
+
+            this._studentListView.UpdateStudentList(students.Select(student => StudentValidator.FromStudent(student)));
         }
     }
 }

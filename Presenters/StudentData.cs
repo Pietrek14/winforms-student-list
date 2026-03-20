@@ -32,6 +32,11 @@ namespace dpiotrowski_lab1.Presenters
             BuildingNumber = building;
             FlatNumber = flat;
         }
+
+        override public String ToString()
+        {
+            return $"{this.Name} {this.LastName}";
+        }
     }
 
     public class IDStudentData : StudentData
@@ -41,6 +46,11 @@ namespace dpiotrowski_lab1.Presenters
         public IDStudentData(Guid id, string name, string lastName, DateTime dateOfBirth, string yearOfStudy, string city, string postalCodeFirst, string postalCodeSecond, string street, string building, string? flat) : base(name, lastName, dateOfBirth, yearOfStudy, city, postalCodeFirst, postalCodeSecond, street, building, flat)
         {
             Id = id;
+        }
+
+        override public String ToString()
+        {
+            return $"{this.Name} {this.LastName} (ID: {this.Id})";
         }
     }
 }
