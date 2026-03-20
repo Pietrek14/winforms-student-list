@@ -207,17 +207,39 @@ namespace dpiotrowski_lab1
         {
             DialogResult result = this.saveStudentsToFileDialog.ShowDialog();
 
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 try
                 {
                     this._presenter.SaveStudentListToFile(this.saveStudentsToFileDialog.FileName);
                 }
-                catch(FileNotFoundException)
+                catch (FileNotFoundException)
                 {
                     this._showMessage($"Nie uda³o siê otworzyæ pliku {this.saveStudentsToFileDialog.FileName}");
                 }
             }
+        }
+
+        private void loadStudentListButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.loadStudentsFromFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    this._presenter.LoadStudentListFromFile(this.loadStudentsFromFileDialog.FileName);
+                }
+                catch (FileNotFoundException)
+                {
+                    this._showMessage($"Nie uda³o siê otworzyæ pliku {this.loadStudentsFromFileDialog.FileName}");
+                }
+                catch (FileLoadException err)
+                {
+                    this._showMessage(err.Message);
+                }
+            }
+
         }
     }
 }

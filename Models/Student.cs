@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace dpiotrowski_lab1.Models
@@ -16,11 +17,19 @@ namespace dpiotrowski_lab1.Models
     public class Student
     {
         private Guid _id;
-        public Guid Id { get { return _id; } }
+        [JsonInclude]
+        public Guid Id {
+            get { return _id; }
+            private set { _id = value; }
+        }
         public string Name { get; set; }
         public string LastName { get; set; }
         private DateTime _dateOfBirth;
-        public DateTime DateOfBirth { get { return _dateOfBirth; } }
+        [JsonInclude]
+        public DateTime DateOfBirth {
+            get { return _dateOfBirth; }
+            private set { _dateOfBirth = value; }
+        }
         public Address Address { get; set; }
         public YearOfStudy YearOfStudy { get; set; }
 

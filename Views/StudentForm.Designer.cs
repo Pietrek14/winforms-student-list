@@ -587,6 +587,7 @@ namespace dpiotrowski_lab1
             loadStudentListButton.TabIndex = 3;
             loadStudentListButton.Text = "Wczytaj listę studentów";
             loadStudentListButton.UseVisualStyleBackColor = false;
+            loadStudentListButton.Click += loadStudentListButton_Click;
             // 
             // saveStudentListButton
             // 

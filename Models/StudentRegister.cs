@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace dpiotrowski_lab1.Models
@@ -12,7 +13,16 @@ namespace dpiotrowski_lab1.Models
         private Dictionary<Guid, Student> _students = new();
         private List<IStudentRegisterSubscriber> _subscribers = new();
 
-        public Dictionary<Guid, Student> Students { get { return _students; } }
+        [JsonInclude]
+        public Dictionary<Guid, Student> Students {
+            get {
+                return _students;
+            }
+            private set
+            {
+                _students = value;
+            }
+         }
 
         public void AddStudent(Student student)
         {
@@ -41,6 +51,11 @@ namespace dpiotrowski_lab1.Models
             _students.Remove(id);
 
             this._updateSubscribers();
+        }
+
+        public uint StudentCount()
+        {
+            return (uint)this._students.Count;
         }
 
         public void Subscribe(IStudentRegisterSubscriber subscriber) { 
