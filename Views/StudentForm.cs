@@ -3,21 +3,13 @@ using dpiotrowski_lab1.Views;
 
 namespace dpiotrowski_lab1
 {
-    public partial class StudentForm : Form, IAddStudentView
+    public partial class StudentForm : Form, IAddStudentView, IStudentListView
     {
-        public event EventHandler<StudentData> AddNewStudent;
-        public event EventHandler<IDStudentData> UpdateStudent;
-        public event EventHandler<Guid> DropStudent;
-
-        public event EventHandler<StudentData> LoadStudent;
-        public event EventHandler<string> SaveStudentListToFile;
-        public event EventHandler<string> LoadStudentListFromFile;
-
         private OpenFileDialog _fileDialog = new();
 
         private Guid? _selectedStudent = null;
 
-        private StudentPresenter _presenter;
+        private IStudentPresenter _presenter;
 
         public StudentForm()
         {
@@ -27,7 +19,9 @@ namespace dpiotrowski_lab1
             this.editStudentButton.Click += editStudentButton_Click;
             this.dropStudentButton.Click += dropStudentButton_Click;
 
-            this._presenter = new StudentPresenter(this, null, new Models.StudentRegister());
+            this._presenter = new StudentPresenter(this, this, new Models.StudentRegister());
+
+            this.flatInputCheckBox_CheckedChanged(null, null);
         }
 
         public void LoadStudentIntoForm(StudentData studentData)
@@ -57,12 +51,12 @@ namespace dpiotrowski_lab1
             }
         }
 
-        public void ShowMessage(String message)
+        private void _showMessage(String message)
         {
             MessageBox.Show(message);
         }
 
-        public void UpdateStudentList(List<StudentData> students)
+        public void UpdateStudentList(List<IDStudentData> students)
         {
             studentList.Items.Clear();
 
@@ -90,11 +84,13 @@ namespace dpiotrowski_lab1
 
         public void AddStudentButton_Click(object? sender, EventArgs e)
         {
+            string yearOfStudy = yearOfStudyInput.SelectedItem == null ? "" : (string)yearOfStudyInput.SelectedItem;
+
             StudentData newStudent = new StudentData(
                 nameInput.Text,
                 lastNameInput.Text,
                 dateOfBirthInput.Value,
-                yearOfStudyInput.SelectedValue == null ? "" : (string)yearOfStudyInput.SelectedValue,
+                yearOfStudy,
                 cityInput.Text,
                 postalCodeInput1.Text,
                 postalCodeInput2.Text,
@@ -103,23 +99,31 @@ namespace dpiotrowski_lab1
                 flatInputCheckBox.Checked ? flatInput.Text : null
             );
 
-            AddNewStudent.Invoke(this, newStudent);
+            try
+            {
+                this._presenter.AddStudent(newStudent);
 
-            _clearStudentForm();
+                _clearStudentForm();
 
-            this._selectedStudent = null;
+                this._selectedStudent = null;
+            }
+            catch (ArgumentException exception)
+            {
+                _showMessage(exception.Message);
+            }
         }
 
         private void flatInputCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            flatInput.Enabled = flatInputCheckBox.Enabled;
+            flatInput.Enabled = flatInputCheckBox.Checked;
+            flatInput.Visible = flatInputCheckBox.Checked;
         }
 
         private void editStudentButton_Click(object? sender, EventArgs e)
         {
             if (!this._selectedStudent.HasValue)
             {
-                ShowMessage("Nie wybrano studenta do edycji!");
+                _showMessage("Nie wybrano studenta do edycji!");
                 return;
             }
 
@@ -137,22 +141,29 @@ namespace dpiotrowski_lab1
                 flatInputCheckBox.Checked ? flatInput.Text : null
             );
 
-            UpdateStudent.Invoke(this, editedStudent);
+            try
+            {
+                this._presenter.UpdateStudent(editedStudent);
 
-            _clearStudentForm();
+                _clearStudentForm();
 
-            this._selectedStudent = null;
+                this._selectedStudent = null;
+            }
+            catch (ArgumentException exception)
+            {
+                _showMessage(exception.Message);
+            }
         }
 
         private void dropStudentButton_Click(object? sender, EventArgs e)
         {
             if (!this._selectedStudent.HasValue)
             {
-                ShowMessage("Nie wybrano studenta do edycji!");
+                _showMessage("Nie wybrano studenta do edycji!");
                 return;
             }
 
-            DropStudent.Invoke(this, this._selectedStudent.Value);
+            this._presenter.DropStudent(this._selectedStudent.Value);
 
             this._clearStudentForm();
 

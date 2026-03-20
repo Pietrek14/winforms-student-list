@@ -11,11 +11,6 @@ namespace dpiotrowski_lab1.Views
 
     internal interface IAddStudentView
     {
-        event EventHandler<StudentData> AddNewStudent;
-        event EventHandler<IDStudentData> UpdateStudent;
-        event EventHandler<Guid> DropStudent;
-
-        void LoadStudentIntoForm(StudentData student);
-        void ShowMessage(String message);
+        public void LoadStudentIntoForm(StudentData student);
     }
 }

@@ -44,7 +44,7 @@ namespace dpiotrowski_lab1.Presenters
                     break;
 
                 default:
-                    throw new ArgumentException("Nie wybrano roku studiów!");
+                    throw new ArgumentException("Nie wybrano poprawnego roku studiów! " + studentData.YearOfStudy);
             }
 
             if (studentData.City.Length == 0)
@@ -52,8 +52,8 @@ namespace dpiotrowski_lab1.Presenters
                 throw new ArgumentException("Miasto nie może być puste");
             }
 
-            if (Regex.IsMatch(studentData.PostalCodeFirst, @"[0-9]{2}") &&
-                Regex.IsMatch(studentData.PostalCodeSecond, @"[0-9]{3}"))
+            if (!Regex.IsMatch(studentData.PostalCodeFirst, @"[0-9]{2}") ||
+                !Regex.IsMatch(studentData.PostalCodeSecond, @"[0-9]{3}"))
             {
                 throw new ArgumentException("Kod pocztowy został wypełniony niepoprawnie");
             }

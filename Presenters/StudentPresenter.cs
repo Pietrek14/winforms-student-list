@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dpiotrowski_lab1.Presenters
 {
-    internal class StudentPresenter
+    internal class StudentPresenter : IStudentPresenter
     {
         private IAddStudentView _addStudentView;
         private IStudentListView _studentListView;
@@ -18,25 +18,52 @@ namespace dpiotrowski_lab1.Presenters
             this._addStudentView = addStudentView;
             this._studentListView = studentListView;
             this._model = model;
-
-            this._addStudentView.AddNewStudent += this._addStudent;
         }
 
-        private void _addStudent(object? sender, StudentData studentData)
+        public void AddStudent(StudentData studentData)
         {
-            Student student;
-
-            try
-            {
-                student = StudentValidator.FromStudentData(studentData);
-            }
-            catch(ArgumentException exception)
-            {
-                this._addStudentView.ShowMessage(exception.Message);
-                return;
-            }
+            Student student = StudentValidator.FromStudentData(studentData);
 
             this._model.AddStudent(student);
+        }
+
+        public void UpdateStudent(IDStudentData studentData)
+        {
+            Student newStudent = StudentValidator.FromStudentData(studentData);
+
+            Student student = this._model.GetStudent(studentData.Id);
+
+            if(student.DateOfBirth != newStudent.DateOfBirth)
+            {
+                throw new ArgumentException("Data urodzenia studenta nie może być zmieniona.");
+            }
+
+            student.Name = newStudent.Name;
+            student.LastName = newStudent.LastName;
+            student.Address = newStudent.Address;
+            student.YearOfStudy = newStudent.YearOfStudy;
+        }
+
+        public void DropStudent(Guid studentId)
+        {
+            this._model.DropStudent(studentId);
+        }
+
+        public void LoadStudentToForm(Guid studentId)
+        {
+            Student student = this._model.GetStudent(studentId);
+            StudentData studentData = StudentValidator.FromStudent(student);
+            this._addStudentView.LoadStudentIntoForm(studentData);
+        }
+
+        public void SaveStudentListToFile(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadStudentListFromFile(string filename)
+        {
+            throw new NotImplementedException();
         }
     }
 }
