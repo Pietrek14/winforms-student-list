@@ -556,6 +556,7 @@ namespace dpiotrowski_lab1
             studentList.Name = "studentList";
             studentList.Size = new Size(426, 360);
             studentList.TabIndex = 2;
+            studentList.SelectedValueChanged += _studentListSelectedItemChanged;
             // 
             // tableLayoutPanel1
             // 
@@ -605,7 +606,6 @@ namespace dpiotrowski_lab1
             Controls.Add(main);
             Name = "StudentForm";
             Text = "Lista studentów";
-            Load += StudentForm_Load;
             main.ResumeLayout(false);
             main.PerformLayout();
             formsContainer.Panel1.ResumeLayout(false);

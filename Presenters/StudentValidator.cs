@@ -84,7 +84,7 @@ namespace dpiotrowski_lab1.Presenters
             }
             catch (FormatException)
             {
-                throw new ArgumentException("Wprowadzono niepoprawny numer budynku");
+                throw new ArgumentException("Wprowadzono niepoprawny numer mieszkania");
             }
 
             return new Student(

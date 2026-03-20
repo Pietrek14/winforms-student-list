@@ -37,18 +37,18 @@ namespace dpiotrowski_lab1
             streetInput.Text = studentData.Street;
             buildingInput.Text = studentData.BuildingNumber;
 
-            if (studentData.FlatNumber != null)
+            if (studentData.FlatNumber != "")
             {
                 flatInput.Text = studentData.FlatNumber;
-                flatInput.Enabled = true;
                 flatInputCheckBox.Checked = true;
             }
             else
             {
                 flatInput.Text = "";
-                flatInput.Enabled = false;
                 flatInputCheckBox.Checked = false;
             }
+
+            this.flatInputCheckBox_CheckedChanged(null, null);
         }
 
         private void _showMessage(String message)
@@ -194,9 +194,14 @@ namespace dpiotrowski_lab1
             this._selectedStudent = null;
         }
 
-        private void StudentForm_Load(object sender, EventArgs e)
+        private void _studentListSelectedItemChanged(object? sender, EventArgs e)
         {
+            if (this.studentList != null && this.studentList.SelectedItems.Count > 0)
+            {
+                this._selectedStudent = ((IDStudentData)this.studentList.SelectedItems[0]).Id;
 
+                this._presenter.LoadStudentToForm(this._selectedStudent.Value);
+            }
         }
     }
 }
