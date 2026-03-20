@@ -64,7 +64,11 @@ namespace dpiotrowski_lab1.Presenters
 
         public void SaveStudentListToFile(string filename)
         {
-            throw new NotImplementedException();
+            FileStream studentFile = File.Open(filename, FileMode.OpenOrCreate);
+
+
+
+            studentFile.Close();
         }
 
         public void LoadStudentListFromFile(string filename)

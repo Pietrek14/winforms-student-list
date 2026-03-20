@@ -203,5 +203,15 @@ namespace dpiotrowski_lab1
                 this._presenter.LoadStudentToForm(this._selectedStudent.Value);
             }
         }
+
+        private void saveStudentListButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.saveStudentsToFileDialog.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                this._presenter.SaveStudentListToFile(this.saveStudentsToFileDialog.FileName);
+            }
+        }
     }
 }

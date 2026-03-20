@@ -73,6 +73,8 @@ namespace dpiotrowski_lab1
             loadStudentListButton = new Button();
             saveStudentListButton = new Button();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            saveStudentsToFileDialog = new SaveFileDialog();
+            loadStudentsFromFileDialog = new OpenFileDialog();
             main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)formsContainer).BeginInit();
             formsContainer.Panel1.SuspendLayout();
@@ -597,6 +599,16 @@ namespace dpiotrowski_lab1
             saveStudentListButton.TabIndex = 2;
             saveStudentListButton.Text = "Zapisz listę studentów";
             saveStudentListButton.UseVisualStyleBackColor = false;
+            saveStudentListButton.Click += saveStudentListButton_Click;
+            // 
+            // saveStudentsToFileDialog
+            // 
+            saveStudentsToFileDialog.Title = "Zapisz listę studentów";
+            // 
+            // loadStudentsFromFileDialog
+            // 
+            loadStudentsFromFileDialog.FileName = "openFileDialog1";
+            loadStudentsFromFileDialog.Title = "Wczytaj listę studentów";
             // 
             // StudentForm
             // 
@@ -671,5 +683,7 @@ namespace dpiotrowski_lab1
         private TableLayoutPanel flatInputLayout;
         private CheckBox flatInputCheckBox;
         private TextBox flatInput;
+        private SaveFileDialog saveStudentsToFileDialog;
+        private OpenFileDialog loadStudentsFromFileDialog;
     }
 }
