@@ -5,7 +5,6 @@ namespace dpiotrowski_lab1
 {
     public partial class StudentForm : Form, IAddStudentView, IStudentListView
     {
-        private OpenFileDialog _fileDialog = new();
 
         private Guid? _selectedStudent = null;
 
@@ -210,7 +209,14 @@ namespace dpiotrowski_lab1
 
             if(result == DialogResult.OK)
             {
-                this._presenter.SaveStudentListToFile(this.saveStudentsToFileDialog.FileName);
+                try
+                {
+                    this._presenter.SaveStudentListToFile(this.saveStudentsToFileDialog.FileName);
+                }
+                catch(FileNotFoundException)
+                {
+                    this._showMessage($"Nie uda³o siê otworzyæ pliku {this.saveStudentsToFileDialog.FileName}");
+                }
             }
         }
     }

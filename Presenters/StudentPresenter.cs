@@ -64,16 +64,23 @@ namespace dpiotrowski_lab1.Presenters
 
         public void SaveStudentListToFile(string filename)
         {
-            FileStream studentFile = File.Open(filename, FileMode.OpenOrCreate);
-
-
-
-            studentFile.Close();
+            StudentJsonHelper.SaveStudentRegister(this._model, filename);
         }
 
         public void LoadStudentListFromFile(string filename)
         {
-            throw new NotImplementedException();
+            StudentRegister? newRegister = StudentJsonHelper.LoadStudentRegister(filename);
+
+            if (newRegister == null)
+            {
+                throw new FileLoadException($"Nie udało się wczytać listy studentów z pliku {filename}.");
+            }
+
+            this._model.Unsubscribe(this);
+
+            this._model = newRegister;
+
+            this._model.Subscribe(this);
         }
 
         public void StudentUpdate()

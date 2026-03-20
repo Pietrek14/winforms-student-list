@@ -12,6 +12,8 @@ namespace dpiotrowski_lab1.Models
         private Dictionary<Guid, Student> _students = new();
         private List<IStudentRegisterSubscriber> _subscribers = new();
 
+        public Dictionary<Guid, Student> Students { get { return _students; } }
+
         public void AddStudent(Student student)
         {
             _students[student.Id] = student;
@@ -39,11 +41,6 @@ namespace dpiotrowski_lab1.Models
             _students.Remove(id);
 
             this._updateSubscribers();
-        }
-
-        public uint StudentCount()
-        {
-            return (uint)_students.Count;
         }
 
         public void Subscribe(IStudentRegisterSubscriber subscriber) { 

@@ -63,8 +63,6 @@ namespace dpiotrowski_lab1.Presenters
                 throw new ArgumentException("Nazwa ulicy nie może być pusta");
             }
 
-            string buildingNumber;
-
             if (!Regex.IsMatch(studentData.BuildingNumber, @"[0-9][0-9A-Z]*"))
             {
                 throw new ArgumentException("Wprowadzono niepoprawny numer budynku");
