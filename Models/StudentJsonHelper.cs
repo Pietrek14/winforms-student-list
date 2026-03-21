@@ -19,11 +19,7 @@ namespace dpiotrowski_lab1.Models
 
         static public StudentRegister? LoadStudentRegister(string filename)
         {
-            Debug.WriteLine("AAAAAA");
-
             string serialized = File.ReadAllText(filename);
-
-            Debug.WriteLine(serialized);
 
             return JsonSerializer.Deserialize<StudentRegister>(serialized);
         }

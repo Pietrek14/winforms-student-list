@@ -72,9 +72,6 @@ namespace dpiotrowski_lab1.Presenters
         {
             StudentRegister? newRegister = StudentJsonHelper.LoadStudentRegister(filename);
 
-            Debug.WriteLine($"Wczytano listę studentów z pliku {filename}.");
-            Debug.WriteLine($"Liczba studentów: {newRegister?.StudentCount()}.");
-
             if (newRegister == null)
             {
                 throw new FileLoadException($"Nie udało się wczytać listy studentów z pliku {filename}.");

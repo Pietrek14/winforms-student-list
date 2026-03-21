@@ -1,5 +1,6 @@
 using dpiotrowski_lab1.Presenters;
 using dpiotrowski_lab1.Views;
+using System.Diagnostics;
 
 namespace dpiotrowski_lab1
 {
@@ -28,9 +29,9 @@ namespace dpiotrowski_lab1
             nameInput.Text = studentData.Name;
             lastNameInput.Text = studentData.LastName;
             dateOfBirthInput.Value = studentData.DateOfBirth;
-            yearOfStudyInput.SelectedValue = studentData;
+            yearOfStudyInput.SelectedItem = studentData.YearOfStudy;
 
-            cityInput.Text = studentData.Street;
+            cityInput.Text = studentData.City;
             postalCodeInput1.Text = studentData.PostalCodeFirst;
             postalCodeInput2.Text = studentData.PostalCodeSecond;
             streetInput.Text = studentData.Street;
@@ -70,7 +71,7 @@ namespace dpiotrowski_lab1
             nameInput.Text = "";
             lastNameInput.Text = "";
             dateOfBirthInput.Value = DateTime.Now;
-            yearOfStudyInput.SelectedValue = null;
+            yearOfStudyInput.SelectedItem = null;
             cityInput.Text = "";
             postalCodeInput1.Text = "";
             postalCodeInput2.Text = "";
@@ -83,13 +84,11 @@ namespace dpiotrowski_lab1
 
         public void AddStudentButton_Click(object? sender, EventArgs e)
         {
-            string yearOfStudy = yearOfStudyInput.SelectedItem == null ? "" : (string)yearOfStudyInput.SelectedItem;
-
             StudentData newStudent = new StudentData(
                 nameInput.Text,
                 lastNameInput.Text,
                 dateOfBirthInput.Value,
-                yearOfStudy,
+                yearOfStudyInput.SelectedItem?.ToString() ?? "",
                 cityInput.Text,
                 postalCodeInput1.Text,
                 postalCodeInput2.Text,
@@ -112,36 +111,6 @@ namespace dpiotrowski_lab1
             }
         }
 
-        private void _allowDigits(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void _allowLettersAndWhitespace(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void _allowAlphanumeric(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsNumber(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void flatInputCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            flatInput.Enabled = flatInputCheckBox.Checked;
-            flatInput.Visible = flatInputCheckBox.Checked;
-        }
-
         private void editStudentButton_Click(object? sender, EventArgs e)
         {
             if (!this._selectedStudent.HasValue)
@@ -155,7 +124,7 @@ namespace dpiotrowski_lab1
                 nameInput.Text,
                 lastNameInput.Text,
                 dateOfBirthInput.Value,
-                yearOfStudyInput.SelectedValue == null ? "" : (string)yearOfStudyInput.SelectedValue,
+                yearOfStudyInput.SelectedItem?.ToString() ?? "",
                 cityInput.Text,
                 postalCodeInput1.Text,
                 postalCodeInput2.Text,
@@ -191,6 +160,36 @@ namespace dpiotrowski_lab1
             this._clearStudentForm();
 
             this._selectedStudent = null;
+        }
+
+        private void _allowDigits(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _allowLettersAndWhitespace(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _allowAlphanumeric(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void flatInputCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            flatInput.Enabled = flatInputCheckBox.Checked;
+            flatInput.Visible = flatInputCheckBox.Checked;
         }
 
         private void _studentListSelectedItemChanged(object? sender, EventArgs e)
